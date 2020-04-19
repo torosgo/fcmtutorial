@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "2837306559",
+    "firebase_url": "https://tutorial1fcmproject-a2aa3.firebaseio.com",
+    "project_id": "tutorial1fcmproject-a2aa3",
+    "storage_bucket": "tutorial1fcmproject-a2aa3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:2837306559:android:d3ec5b2dcb87a0476e3a0a",
+        "android_client_info": {
+          "package_name": "com.fabrikam.fcmtutorial1app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "2837306559-2atbl60a389p0pebj9leccv8s1c3oc9f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFYsySx890hS7S8smcGVwWfCytPSHjBHg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "2837306559-2atbl60a389p0pebj9leccv8s1c3oc9f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
