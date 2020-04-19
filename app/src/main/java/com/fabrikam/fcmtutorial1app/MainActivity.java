@@ -10,7 +10,10 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.widget.CheckBox;
+import java.util.HashSet;
+import java.util.Set;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private FirebaseService FirebaseService;
+    private Notifications notifications;
 
     /*@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
+    /*@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -66,12 +70,46 @@ public class MainActivity extends AppCompatActivity {
         mainActivity = this;
         registerWithNotificationHubs();
         FirebaseService.createChannelAndHandleNotifications(getApplicationContext());
-    }
+    }*/
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        mainActivity = this;
+
+        FirebaseService.createChannelAndHandleNotifications(getApplicationContext());
+        notifications = new Notifications(this, NotificationSettings.HubName, NotificationSettings.HubListenConnectionString);
+        notifications.subscribeToCategories(notifications.retrieveCategories());
+    }
+
+    /*@Override
     protected void onStart() {
         super.onStart();
         isVisible = true;
+    }*/
+
+    @Override
+    protected void onStart() {
+
+        super.onStart();
+        isVisible = true;
+
+        Set<String> categories = notifications.retrieveCategories();
+
+        CheckBox world = (CheckBox) findViewById(R.id.worldBox);
+        world.setChecked(categories.contains("world"));
+        CheckBox politics = (CheckBox) findViewById(R.id.politicsBox);
+        politics.setChecked(categories.contains("politics"));
+        CheckBox business = (CheckBox) findViewById(R.id.businessBox);
+        business.setChecked(categories.contains("business"));
+        CheckBox technology = (CheckBox) findViewById(R.id.technologyBox);
+        technology.setChecked(categories.contains("technology"));
+        CheckBox science = (CheckBox) findViewById(R.id.scienceBox);
+        science.setChecked(categories.contains("science"));
+        CheckBox sports = (CheckBox) findViewById(R.id.sportsBox);
+        sports.setChecked(categories.contains("sports"));
     }
 
     @Override
@@ -101,6 +139,31 @@ public class MainActivity extends AppCompatActivity {
                 helloText.setText(notificationMessage);
             }
         });
+    }
+
+    public void subscribe(View sender) {
+        final Set<String> categories = new HashSet<String>();
+
+        CheckBox world = (CheckBox) findViewById(R.id.worldBox);
+        if (world.isChecked())
+            categories.add("world");
+        CheckBox politics = (CheckBox) findViewById(R.id.politicsBox);
+        if (politics.isChecked())
+            categories.add("politics");
+        CheckBox business = (CheckBox) findViewById(R.id.businessBox);
+        if (business.isChecked())
+            categories.add("business");
+        CheckBox technology = (CheckBox) findViewById(R.id.technologyBox);
+        if (technology.isChecked())
+            categories.add("technology");
+        CheckBox science = (CheckBox) findViewById(R.id.scienceBox);
+        if (science.isChecked())
+            categories.add("science");
+        CheckBox sports = (CheckBox) findViewById(R.id.sportsBox);
+        if (sports.isChecked())
+            categories.add("sports");
+
+        notifications.storeCategoriesAndSubscribe(categories);
     }
 
 }
